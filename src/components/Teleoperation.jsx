@@ -6,15 +6,15 @@ import * as ROSLIB from "roslib";
 
 const Teleoperation = (props) => {
   const ros = props.ros;
-// declare function publishCMD_vel with x and y parameters to 
+  // declare function publishCMD_vel with x and y parameters to
   function publishCMD_vel(x, y) {
-    // publishing a topic >> cmd_vel - The main user interface topic 
+    // publishing a topic >> cmd_vel - The main user interface topic
     var cmd_vel = new ROSLIB.Topic({
       ros: ros,
       name: Config.CMD_VEL_TOPIC,
       messageType: "geometry_msgs/Twist",
     });
-   // 
+    //
     var twist = new ROSLIB.Message({
       linear: {
         x: y / 50,
@@ -29,7 +29,7 @@ const Teleoperation = (props) => {
     });
     cmd_vel.publish(twist);
   }
-  // robot move function 
+  // robot move function
   function handle_Move(event) {
     // call function to moving the robot
     publishCMD_vel(event.x, event.y);
@@ -39,7 +39,6 @@ const Teleoperation = (props) => {
     // call function to stop the robot
     publishCMD_vel(0, 0);
   }
-
   return (
     <Container>
       <h1>Joystick</h1>
@@ -47,8 +46,8 @@ const Teleoperation = (props) => {
       <Joystick
         size={100}
         sticky={false}
-        baseColor="black"
-        stickColor="rgba(90, 103, 140, 0.836)"
+        baseColor="rgba(0,0,0)"
+        stickColor="rgb(39,91,189)"
         move={handle_Move}
         stop={handle_Stop}
       ></Joystick>
@@ -185,3 +184,24 @@ export default Teleoperation;
 // }
 
 // export default Teleoperation;
+// function getPolygonsFromRos() {
+//   var polygons = [];
+//   var polygon_sub = new ROSLIB.Topic({
+//     ros: ros,
+//     name: "/zones",
+//     messageType: "mir_msgs/Zone",
+//   });
+//   polygon_sub.subscribe((message) => {
+//     let contains = false;
+//     for (let index = 0; index < polygons.length; index++) {
+//       if (polygons[index].zone_id === message.zone_id) {
+//         contains = true;
+//         break;
+//       }
+//     }
+//     if (!contains) {
+//       polygons.push(message);
+//       updatePolygons(polygons);
+//     }
+//   });
+// }

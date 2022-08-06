@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import "./bootstrap-styling/lux-bootstrap.min.css";
+import "./bootstrap-styling/bootstrap6.min.css";
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';

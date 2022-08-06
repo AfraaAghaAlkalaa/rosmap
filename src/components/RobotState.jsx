@@ -10,15 +10,15 @@ class RobotState extends Component {
     x: 0,
     y: 0,
     orientation: 0,
-   // linear_velocity: 0,
-   // angular_velocity: 0,
+    // linear_velocity: 0,
+    // angular_velocity: 0,
   };
 
   constructor() {
     super();
     this.init_connection();
   }
-// connection function 
+  // connection function
   init_connection() {
     this.state.ros = new ROSLIB.Ros();
     console.log(this.state.ros);
@@ -70,22 +70,18 @@ class RobotState extends Component {
   componentDidMount() {
     this.getRobotState();
   }
-// get robot postion 
+  // get robot postion
   getRobotState() {
     var pose_subscriber = new ROSLIB.Topic({
       ros: this.state.ros,
       name: Config.POSE_TOPIC,
-      messageType: "geometry_msgs/PoseWithCovarianceStamped" // This represents a pose in free space with uncertainty.
-
+      messageType: "geometry_msgs/PoseWithCovarianceStamped", // This represents a pose in free space with uncertainty.
     });
 
     pose_subscriber.subscribe((message) => {
       this.setState({ x: message.pose.pose.position.x.toFixed(2) });
       this.setState({ y: message.pose.pose.position.y.toFixed(2) });
-      this.setState({
-        orientation: this.getOrientaionFromQuaternion(
-          message.pose.pose.orientation
-        ).toFixed(2),
+      this.setState({ orientation: this.getOrientaionFromQuaternion(message.pose.pose.orientation).toFixed(2),
       });
     });
     // create a subscriber for the velocities in the topic
@@ -105,7 +101,7 @@ class RobotState extends Component {
     );
 
     var RPY = new Three.Euler().setFromQuaternion(q);
-    return RPY["_z"] * (180 / Math.PI); 
+    return RPY["_z"] * (180 / Math.PI);
   }
 
   render() {

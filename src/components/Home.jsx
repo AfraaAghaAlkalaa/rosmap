@@ -81,9 +81,10 @@ class Home extends Component {
     return (
       <div>
         <Container>
-          <h1 className="text-center mt-3">Robot Control Page</h1>
+          <h1 className="text-center" id="main_page">Robot Control Page</h1>
+
           <Row>
-            <Col>
+            <Col id="connection">
               {/* ros={this.state.ros} call the component via its props */}
               <Connection ros={this.state.ros} />
             </Col>
